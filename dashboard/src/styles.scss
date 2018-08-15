@@ -1,0 +1,7 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'src/dashboard-theme.scss';
+@mixin dashboard-theme($theme) {
+    $primary: map-get($map: $theme, $key: primary);
+    $accent: map-get($map: $theme, $key: accent);
+    $warn: map-get($map: $theme, $key: warn);
+}
