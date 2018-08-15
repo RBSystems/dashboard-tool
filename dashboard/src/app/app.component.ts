@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform  } from '@angular/core';
 import { APIService } from './api.service';
 import { Building, Room, RoomConfiguration, Device, DeviceType, UIConfig, Role } from './objects';
-import { Url } from 'url';
-import { DomSanitizer, SafeUrl } from '../../node_modules/@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -26,11 +25,12 @@ export class AppComponent implements OnInit {
     this.getBuildings()
   }
 
+  //Gets the hostname to enter the pi hostname in to a URL format
   getURL(hostname): SafeUrl {
-    console.log(hostname)
     return "http://" + hostname + ".byu.edu:8888"
   }
 
+  //Refreshes the Pi by going to :8888/refresh
   refresh(hostname: string) {
     this.api.RefreshPi(hostname).subscribe(success => {
       console.log(success)
@@ -39,6 +39,8 @@ export class AppComponent implements OnInit {
         console.log(error)
       })
   }
+  
+  //Deploys Code to the Pi again
   deploy(hostname: string) {
     this.api.Deploy(hostname).subscribe(success => {
       console.log(success)
@@ -47,6 +49,8 @@ export class AppComponent implements OnInit {
         console.log(error)
       })
   }
+
+  //Gets a list of all the pis
   getPiList() {
     this.api.getPiList().subscribe(success => {
       console.log(success)
@@ -56,6 +60,7 @@ export class AppComponent implements OnInit {
       })
   }
 
+  //Obtains a list of all the buildings.
   getBuildings() {
     this.buildingList = [];
     this.api.GetBuildingList().subscribe(success => {
@@ -66,8 +71,9 @@ export class AppComponent implements OnInit {
       })
   }
 
+  //Obtains the list of all the rooms in the building
   getRooms() {
-    this.roomList = [];
+    this.roomList = []; //Make the empty room array to fill 
     this.api.GetRoomList(this.currentBuilding._id).subscribe(success => {
       this.roomList = success
     },
@@ -76,8 +82,9 @@ export class AppComponent implements OnInit {
       })
   }
 
+  //Obtains all the Pis that are in a specific room. 
   getPisByRoom() {
-    this.piList = [];
+    this.piList = []; //Make the empty pi array to fill
     this.api.GetPisByRoom(this.currentRoom._id).subscribe(success => {
       this.piList = success
       console.log(this.piList)
@@ -85,5 +92,14 @@ export class AppComponent implements OnInit {
       error => {
         console.log(error)
       })
+  }
+}
+
+//Pipe is used to pipe the room to bypass an unecure something or another...Basically it makes the iFrame deal-y-o work...
+@Pipe({ name: "safe" })
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }

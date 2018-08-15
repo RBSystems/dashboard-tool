@@ -1,38 +1,59 @@
-<mat-toolbar>
-  <mat-toolbar-row class="header">
-    <h1>The Dashboard</h1>
-  </mat-toolbar-row>
-</mat-toolbar>
+<div class="main-wrapper">
 
-<mat-form-field>
-    <mat-label>Building</mat-label>
-    <mat-select matInput [(ngModel)]="currentBuilding" (selectionChange)="getRooms()">
-        <mat-option *ngFor="let b of buildingList" [value]="b">{{b._id}} ({{b.name}})</mat-option>
-    </mat-select>
-</mat-form-field>
-<!-- ROOM -->
-<mat-form-field *ngIf="currentBuilding._id != null">
-    <mat-label>Room</mat-label>
-    <mat-select matInput [(ngModel)]="currentRoom" (selectionChange)="getPisByRoom()">
-        <mat-option *ngFor="let r of roomList" [value]="r">{{r._id}}</mat-option>
-    </mat-select>
-</mat-form-field>
+    <body>
+        <mat-toolbar>
+            <mat-toolbar-row class="header">
+                <h1>{{title}}</h1>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+        <mat-form-field>
+            <mat-label>Building</mat-label>
+            <mat-select matInput [(ngModel)]="currentBuilding" (selectionChange)="getRooms()">
+                <mat-option *ngFor="let b of buildingList" [value]="b">{{b._id}} ({{b.name}})</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <!-- ROOM -->
+        <mat-form-field *ngIf="currentBuilding._id != null">
+            <mat-label>Room</mat-label>
+            <mat-select matInput [(ngModel)]="currentRoom" (selectionChange)="getPisByRoom()">
+                <mat-option *ngFor="let r of roomList" [value]="r">{{r._id}}</mat-option>
+            </mat-select>
+        </mat-form-field>
 
 
-<mat-card class="picard" *ngFor="let pi of piList">
-<mat-card-title>{{pi._id}}</mat-card-title>
-<mat-card-content>
-    <iframe src="http://{{pi._id}}.byu.edu:8888"
-    frameborder="0" 
-    scrolling="no" 
-    width="800" 
-    height="480"> </iframe>
-</mat-card-content>
-<mat-card-actions>
-    <button mat-button (click)="refresh(pi._id)">SWAB</button>
-    <button mat-button (click)="deploy(pi._id)">DEPLOY</button>
-  </mat-card-actions>
-</mat-card>
+        <mat-card class="picard" *ngFor="let pi of piList">
+            <mat-card-title>{{pi._id}}</mat-card-title>
+            <mat-card-content>
+                <iframe [src]='getURL(pi._id) | safe' frameborder="0" scrolling="no" width="800" height="480"> </iframe>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button (click)="refresh(pi._id)">SWAB</button>
+                <button mat-button (click)="deploy(pi._id)">DEPLOY</button>
+            </mat-card-actions>
+        </mat-card>
+    </body>
+
+    <footer class="footer">
+        <h5>Brigham Young University - OIT</h5>
+    </footer>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PRETEND ALL THIS CODE DOWN HERE JUST DOESNT EXIST FOR A MOMENT -->
 
 <!-- <mat-card class="picard">
   <mat-card-title>A PI!!</mat-card-title>
@@ -61,4 +82,3 @@
         <button mat-button (click)="deploy('ITB-1108-CP4')">DEPLOY</button>
       </mat-card-actions>
   </mat-card> -->
-

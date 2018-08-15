@@ -4,14 +4,14 @@ import { MatCardModule, MatListModule, MatMenuModule, MatToolbarModule, MatButto
 import { NgModule } from '@angular/core';
 import { SafePipeModule } from 'safe-pipe'
 
-import { AppComponent } from './app.component';
+import { AppComponent, SafePipe } from './app.component';
 import { APIService} from './api.service';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '../../node_modules/@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, SafePipe
   ],
   imports: [
     HttpModule,
