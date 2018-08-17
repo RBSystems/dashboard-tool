@@ -1,9 +1,4 @@
 @import 'src/dashboard-theme.scss';
-@mixin dashboard-theme($theme) {
-    $primary: map-get($map: $theme, $key: primary);
-    $accent: map-get($map: $theme, $key: accent);
-    $warn: map-get($map: $theme, $key: warn);
-}
 
 
 * {
@@ -31,14 +26,6 @@ body {
 
 .header h1 {
     font-size: 25px;
-}
-
-/* CARD */
-
-.picard {
-    max-width: 850px;
-    // display: flex;
-    // justify-content: center;
 }
 
 

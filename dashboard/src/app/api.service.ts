@@ -56,4 +56,12 @@ export class APIService {
     GetPisByRoom(roomId: string): Observable<Device[]> {
         return this.http.get(this.url + '/rooms/' + roomId + '/roles/ControlProcessor', this.options).map(response => response.json());
     }
+
+    GetMStatus(hostname: string, port: string): Observable<any> {
+    return this.http.get('http://' + hostname + '.byu.edu:' + port + '/mstatus', this.options).map(response => response.json());
+    }
+
+    getVersionNum(repo: string): Observable<any> {
+        return this.http.get('https://raw.githubusercontent.com/byuoitav/' + repo + '/master/version.txt', this.options).map(response =>response.json());
+    }
 }

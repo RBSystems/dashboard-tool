@@ -20,18 +20,7 @@
                 <mat-option *ngFor="let r of roomList" [value]="r">{{r._id}}</mat-option>
             </mat-select>
         </mat-form-field>
-
-
-        <mat-card class="picard" *ngFor="let pi of piList">
-            <mat-card-title>{{pi._id}}</mat-card-title>
-            <mat-card-content>
-                <iframe [src]='getURL(pi._id) | safe' frameborder="0" scrolling="no" width="800" height="480"> </iframe>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-button (click)="refresh(pi._id)">SWAB</button>
-                <button mat-button (click)="deploy(pi._id)">DEPLOY</button>
-            </mat-card-actions>
-        </mat-card>
+        <app-pi-info *ngFor='let pi of piList' [pi]='pi'></app-pi-info>
     </body>
 
     <footer class="footer">

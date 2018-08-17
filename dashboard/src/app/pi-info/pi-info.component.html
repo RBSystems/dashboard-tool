@@ -1,0 +1,15 @@
+<mat-card class="picard">
+  <mat-card-title>{{pi._id}}</mat-card-title>
+  <mat-card-subtitle>{{getVersion(pi._id, '8000')}}</mat-card-subtitle>
+  <mat-card-content>
+    <iframe [src]='getURL(pi._id) | safe' frameborder="0" scrolling="no" width="800" height="480"> </iframe>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="refresh(pi._id)">SWAB</button>
+    <button mat-button (click)="deploy(pi._id)">DEPLOY</button>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>Logs</mat-expansion-panel-header>
+
+    </mat-expansion-panel>
+  </mat-card-actions>
+</mat-card>
